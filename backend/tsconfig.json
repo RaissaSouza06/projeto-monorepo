@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "target": "ES2024",
-        "module": "commonjs",
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "target": "ES2024",           // Define a versão moderna do JavaScript que o código vai seguir.
+        "module": "commonjs",        // Define o padrão de importação/exportação dos módulos.
+        "rootDir": "./src",          // Onde estão os arquivos de código-fonte que você escreve.
+        "outDir": "./dist",          // Onde o TypeScript vai salvar os arquivos compilados finais (para produção).
+        "strict": true,              // Ativa o modo estrito de checagem de erros do TypeScript (ajuda a evitar bugs).
+        "esModuleInterop": true,     // Permite importar bibliotecas CommonJS como se fossem módulos modernos (ES6).
+        "skipLibCheck": true,        // Pula a verificação de erros nas tipagens de bibliotecas de terceiros (acelera a compilação).
+        "forceConsistentCasingInFileNames": true // Garante que o uso de letras maiúsculas/minúsculas nos nomes de arquivos seja consistente.
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*"]          // Diz ao compilador para olhar e traduzir todos os arquivos dentro da pasta 'src'.
 }
