@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { sequelize } from './config/database'
 import { User } from './models/User'
+import { appRoutes } from './routes'
 
 // Carrega as variáveis de ambiente do arquivo .env para dentro do process.env
 dotenv.config()
@@ -25,6 +26,7 @@ app.get('/api/health', (req: Request, res: Response) => {
         timestamp: new Date().toISOString()
     });
 });
+
 
 // Rota para cadastrar novo usuário
 app.post('/api/users', async (req: Request, res:Response) => {
