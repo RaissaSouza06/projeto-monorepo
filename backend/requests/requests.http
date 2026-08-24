@@ -9,7 +9,24 @@ POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "nome" : "gisely",
-  "email" : "gisely@outlook.com",
-  "senha_hash" : "321"
+  "nome" : "Raissa",
+  "email" : "raissa@outlook.com",
+  "senha_hash" : "123"
 }
+
+### BUSCAR USUÁRIO POR ID
+GET http://localhost:3000/api/users/1
+
+
+### ATUALIZAR UM USUÁRIO
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+
+{
+  "nome" : "dwf",
+  "email" : "htyh@outlook.com",
+  "senha_hash" : "345"
+}
+
+### EXCLUIR USUÁRIO
+DELETE http://localhost:3000/api/users/1
