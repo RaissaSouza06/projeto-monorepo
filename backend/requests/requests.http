@@ -24,9 +24,8 @@ Content-Type: application/json
 
 {
   "nome" : "dwf",
-  "email" : "htyh@outlook.com",
-  "senha_hash" : "345"
+  "email" : "htyh@outlook.com"
 }
 
 ### EXCLUIR USUÁRIO
-DELETE http://localhost:3000/api/users/1
+DELETE http://localhost:3000/api/users/5

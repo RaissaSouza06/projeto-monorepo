@@ -19,7 +19,10 @@ export class UserController{
     // GET /api/User/:id - Busca um usuário pelo ID
     public static async show(req: Request, res:Response): Promise<Response>{
         try {
-            const {id} = req.params
+            const id = parseInt(req.params.id as string, 10);
+            if (isNaN(id) || id <= 0){
+                return res.status(400).json({erro: 'O id informado deve ser um número'})
+            }
             const user = await User.findByPk(Number(id),{
                 attributes: ['id', 'nome', 'email', 'createdAt', 'updatedAt']
             })
@@ -38,10 +41,33 @@ export class UserController{
     public static async create(req: Request, res:Response): Promise<Response>{
         try {
             const {nome, email, senha_hash} = req.body
-            if(!nome || !email || !senha_hash){
-                return res.status(400).json({erro: 'Os campos nome, email e senha são obrigatórios'})
+
+            // nome
+            if (!nome || typeof nome !== 'string' || nome.trim() === ''){
+                return res.status(400).json({erro: 'O campo nome é obrigatório'})
             }
-            const novoUser = await User.create({nome, email, senha_hash})
+
+            // email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || emailRegex.test(email.trim())){
+                return res.status(400).json({erro: 'Informe um e-mail válido'})
+            }
+            const userExistente = await User.findOne({ where: {email: email.trim()}});
+            if (userExistente){
+                return res.status(400).json({erro: 'Já existe um usuário cadastrado com este e-mail'})
+            }
+
+            // senha
+            if(!senha_hash || typeof senha_hash !== 'string' || senha_hash.length < 6){
+                return res.status(400).json({erro: 'A senha deve conter no minimo 6 caracteres'})
+            }
+
+            const novoUser = await User.create({
+                nome: nome.trim(), 
+                email: email.trim().toLowerCase(), 
+                senha_hash
+            })
+
             return res.status(201).json({
                 id: novoUser.id,
                 nome: novoUser.nome,
@@ -58,14 +84,33 @@ export class UserController{
     // PUT /api/Users/:id  - Atualizar um usuário existente
     public static async update(req: Request, res:Response): Promise<Response>{
         try {
-            const {id} = req.params
-            const {nome, email} = req.body
-            const user = await User.findByPk(Number(id))
-            if (!user){
-              return res.status(404).json({erro: 'Usuário não encontrado'})  
+            const id = parseInt(req.params.id as string, 10);
+            if (isNaN(id) || id <= 0){
+                return res.status(400).json({erro: 'O id informado deve ser um número válido'})
             }
-            if (nome) user.nome = nome;
-            if (email) user.email = email;
+            const {nome, email} = req.body
+            const user = await User.findByPk(id)
+            if (!user){
+                return res.status(404).json({erro: 'Usuário não encontrado'})  
+            }
+            if (nome !== undefined){
+                if(typeof nome !== 'string' || nome.trim() === ''){
+                    return res.status(404).json({erro: 'O campo nome deve ser um texto válido'})    
+                }
+                user.nome = nome.trim();
+            } 
+            
+            if (email !== undefined){
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if(!emailRegex.test(email.trim())){
+                    return res.status(404).json({erro: 'Informe um e-mail válido'})          
+                }
+                const emailEmUso = await User.findOne({ where: {oemail: email.trim().toLowerCase()}})
+                if (emailEmUso && emailEmUso.id !== id){
+                    return res.status(404).json({erro: 'Este email já esta em uso'})          
+                }
+                user.email = email.trim().toLowerCase();
+            }
             await user.save()
             return res.status(200).json({
                 id: user.id,
@@ -83,8 +128,11 @@ export class UserController{
     // DELETE /api/Users/:id  - Remove um usuário 
     public static async delete(req: Request, res:Response): Promise<Response>{
         try {
-            const {id} = req.params
-            const user = await User.findByPk(Number(id))
+            const id = parseInt(req.params.id as string, 10);
+            if (isNaN(id) || id <= 0){
+                return res.status(400).json({erro: 'O id informado deve ser um número'})
+            }
+            const user = await User.findByPk(id)
             if (!user){
               return res.status(404).json({erro: 'Usuário não encontrado'})  
             }
