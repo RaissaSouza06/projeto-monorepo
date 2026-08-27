@@ -1,0 +1,32 @@
+name: Monorepo CI Pipeline
+on: 
+    # dispara automaticamente ao enviar novos commits para a branch main
+    push:
+        branches:
+            - main
+    # dispara na abertura ou atualização de pull request, direcionados para a branch main
+    pull_request:
+        branches:
+            - main
+    # permite execução manual pelo painel do github (aba actions -> run workflow)
+    workflow_dispatch:
+
+jobs: 
+    validar-monorepo: 
+        name: Validar Backend, Frotend e Docker
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 1. Baixar o código fonte
+              uses: actions/checkouts@v4
+
+            - name: 2. Habilitar o pnpm
+              uses: pnpm/actions-setup@v4
+
+            - name: 3. Configurar o Node.js 24 com cache de dependencias
+              uses: actions/setup-node@v4
+              with: 
+                node-version: 24
+                cache: 'pnpm'
+                cache-dependecy-path: '**/pnpm-lock.yaml'
+
