@@ -18,7 +18,7 @@ jobs:
 
         steps:
             - name: 1. Baixar o código fonte
-              uses: actions/checkouts@v4
+              uses: actions/checkout@v4
 
             - name: 2. Habilitar o pnpm
               uses: pnpm/action-setup@v4
