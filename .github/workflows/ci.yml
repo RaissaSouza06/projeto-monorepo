@@ -30,4 +30,15 @@ jobs:
               with: 
                 node-version: 24
 
+            - name: 4. Instalar dependencias no banckend
+              run: |
+                cd backend
+                pnpm install --frozen-lockfile
+
+            - name: 5. Validar tipos e compilar o backend (express)
+              run: |
+                cd backend
+                pnpm run build
+            
+
 
