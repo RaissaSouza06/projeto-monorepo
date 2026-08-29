@@ -39,6 +39,10 @@ jobs:
               run: |
                 cd backend
                 pnpm run build
+
+            - name: 6. Validar construção da imagem docker na API
+              run: | 
+                docker build -t api-services:test ./backend
             
 
 
