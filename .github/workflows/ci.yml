@@ -43,6 +43,24 @@ jobs:
             - name: 6. Validar construção da imagem docker na API
               run: | 
                 docker build -t api-services:test ./backend
+
+            - name: 7. Validar frotend (quando presente no monorepo)
+              run: | 
+                if [ -d "app"]; then
+                  echo "Subprojeto frotend encontrado. Iniciando validação..."
+                  cd app
+                  pnpm install --frozen-lockfile
+                  pnpm rund build
+                  docker build -t app-services.test ./app
+                else
+                  echo "Subprojeto ainda não adicionado ao monorepo"
+                f1
+
+            - name: 8. Resumo da execução
+              run: |
+                echo "Integração contínua concluída com sucesso"
+                echo "Autor da alterção: ${{ github.actor }}"
+                echo "Commit validado: ${{ github.sha }}"
             
 
 
