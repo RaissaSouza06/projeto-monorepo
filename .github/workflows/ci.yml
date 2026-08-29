@@ -50,7 +50,7 @@ jobs:
                   echo "Subprojeto frotend encontrado. Iniciando validação..."
                   cd app
                   pnpm install --frozen-lockfile
-                  pnpm rund build
+                  pnpm run build
                   docker build -t app-services.test ./app
                 else
                   echo "Subprojeto ainda não adicionado ao monorepo"
