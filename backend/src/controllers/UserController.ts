@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import {User} from '../models/User';
+import bcrypt from 'bcryptjs';
 
 export class UserController{
     // GET /api/Users - lista todos os usuários
@@ -40,7 +41,7 @@ export class UserController{
     // POST /api/Users - Cadastrar um novo usuário
     public static async create(req: Request, res:Response): Promise<Response>{
         try {
-            const {nome, email, senha_hash} = req.body
+            const {nome, email, password} = req.body
 
             // nome
             if (!nome || typeof nome !== 'string' || nome.trim() === ''){
@@ -49,7 +50,7 @@ export class UserController{
 
             // email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || emailRegex.test(email.trim())){
+            if (!email || !emailRegex.test(email.trim())){
                 return res.status(400).json({erro: 'Informe um e-mail válido'})
             }
             const userExistente = await User.findOne({ where: {email: email.trim()}});
@@ -58,9 +59,11 @@ export class UserController{
             }
 
             // senha
-            if(!senha_hash || typeof senha_hash !== 'string' || senha_hash.length < 6){
+            if(!password || typeof password !== 'string' || password.length < 6){
                 return res.status(400).json({erro: 'A senha deve conter no minimo 6 caracteres'})
             }
+
+            const senha_hash = await bcrypt.hash(password, 10)
 
             const novoUser = await User.create({
                 nome: nome.trim(), 

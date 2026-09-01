@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { userRoutes } from "./userRoutes";
+import { authRoutes } from "./authRoutes";
 
 const router = Router();
+router.use('/auth', authRoutes)
 
 // Registra as rotas de usuário sob prefixo / user
 router.use('/users', userRoutes)
