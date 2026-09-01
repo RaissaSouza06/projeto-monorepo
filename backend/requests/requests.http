@@ -9,9 +9,9 @@ POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "nome" : "Raissa",
-  "email" : "raissa@outlook.com",
-  "senha_hash" : "123"
+  "nome" : "Ativin souza",
+  "email" : "Ativin.souza@gmail.com",
+  "password" : "12383746"
 }
 
 ### BUSCAR USUÁRIO POR ID
