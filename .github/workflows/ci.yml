@@ -1,66 +1,73 @@
 name: Monorepo CI Pipeline
-on: 
-    # dispara automaticamente ao enviar novos commits para a branch main
-    push:
-        branches:
-            - main
-    # dispara na abertura ou atualização de pull request, direcionados para a branch main
-    pull_request:
-        branches:
-            - main
-    # permite execução manual pelo painel do github (aba actions -> run workflow)
-    workflow_dispatch:
+on:
+  # dispara automaticamente ao enviar novos commits para a branch main
+  push:
+    branches:
+      - main
+  # dispara na abertura ou atualização de pull request, direcionados para a branch main
+  pull_request:
+    branches:
+      - main
+  # permite execução manual pelo painel do github (aba actions -> run workflow)
+  workflow_dispatch:
 
-jobs: 
-    validar-monorepo: 
-        name: Validar Backend, Frotend e Docker
-        runs-on: ubuntu-latest
+jobs:
+  validar-monorepo:
+    name: Validar Backend, Frotend e Docker
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: 1. Baixar o código fonte
-              uses: actions/checkout@v4
+    steps:
+      - name: 1. Baixar o código fonte
+        uses: actions/checkout@v4
 
-            - name: 2. Habilitar o pnpm
-              uses: pnpm/action-setup@v4
-              with: 
-                version: 11
+      - name: 2. Habilitar o pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
 
-            - name: 3. Configurar o Node.js 24 com cache de dependencias
-              uses: actions/setup-node@v4
-              with: 
-                node-version: 24
+      - name: 3. Configurar o Node.js 24 com cache de dependencias
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-            - name: 4. Instalar dependencias no banckend
-              run: |
-                cd backend
-                pnpm install --frozen-lockfile
+      - name: 4. Instalar dependencias no banckend
+        run: |
+          cd backend
+          pnpm install --frozen-lockfile
 
-            - name: 5. Validar tipos e compilar o backend (express)
-              run: |
-                cd backend
-                pnpm run build
+      - name: 5. Validar padronização de código (ESLint)
+        run: |
+          cd backend
+          pnpm run lint
 
-            - name: 6. Validar construção da imagem docker na API
-              run: | 
-                docker build -t api-services:test ./backend
+      - name: 6. Validar formatação de arquivos (Prettier)
+        run: |
+          cd backend
+          pnpm run format:check
 
-            - name: 7. Validar frotend (quando presente no monorepo)
-              run: | 
-                if [ -d "app"]; then
-                  echo "Subprojeto frotend encontrado. Iniciando validação..."
-                  cd app
-                  pnpm install --frozen-lockfile
-                  pnpm run build
-                  docker build -t app-services.test ./app
-                else
-                  echo "Subprojeto ainda não adicionado ao monorepo"
-                f1
+      - name: 7. Validar tipos e compilar o backend (express)
+        run: |
+          cd backend
+          pnpm run build
 
-            - name: 8. Resumo da execução
-              run: |
-                echo "Integração contínua concluída com sucesso"
-                echo "Autor da alterção: ${{ github.actor }}"
-                echo "Commit validado: ${{ github.sha }}"
-            
+      - name: 8. Validar construção da imagem docker na API
+        run: |
+          docker build -t api-services:test ./backend
 
+      - name: 9. Validar frotend (quando presente no monorepo)
+        run: |
+          if [ -d "app"]; then
+            echo "Subprojeto frotend encontrado. Iniciando validação..."
+            cd app
+            pnpm install --frozen-lockfile
+            pnpm run build
+            docker build -t app-services.test ./app
+          else
+            echo "Subprojeto ainda não adicionado ao monorepo"
+          f1
 
+      - name: 10. Resumo da execução
+        run: |
+          echo "Integração contínua concluída com sucesso"
+          echo "Autor da alterção: ${{ github.actor }}"
+          echo "Commit validado: ${{ github.sha }}"
