@@ -64,7 +64,7 @@ jobs:
             docker build -t app-services.test ./app
           else
             echo "Subprojeto ainda não adicionado ao monorepo"
-          f1
+          fi
 
       - name: 10. Resumo da execução
         run: |
