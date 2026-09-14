@@ -115,13 +115,13 @@ export class UserController {
         user.nome = nome.trim();
       }
 
-      if (email !== undefined) {
+      if (email != undefined) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.trim())) {
-          return res.status(404).json({ erro: 'Informe um e-mail válido' });
+        if (!email || !emailRegex.test(email.trim())) {
+          return res.status(400).json({ erro: 'Informe um e-mail válido' });
         }
         const emailEmUso = await User.findOne({
-          where: { oemail: email.trim().toLowerCase() },
+          where: { email: email.trim().toLowerCase() },
         });
         if (emailEmUso && emailEmUso.id !== id) {
           return res.status(404).json({ erro: 'Este email já esta em uso' });
