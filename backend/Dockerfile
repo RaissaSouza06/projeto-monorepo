@@ -1,19 +1,23 @@
-# Define a imagem de origem base (cria em cima d euma que já esta pronta)
+# Define a imagem de origem base (cria em cima de uma que já esta pronta)
 FROM node:24-alpine
 
-#Defin o diretório de trabalho interno do container (a que fica dentro do linux)
+# Configura o diretório global do pnpm
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV path="$PNPM_HOME:$PATH"
+
+# Define o diretório de trabalho interno do container (a que fica dentro do linux)
 WORKDIR /app
 
-#Instala o pnpm globalmente para gerenciar as dependenciais
-RUN npm install -g pnpm@11.20
+# Instala o pnpm globalmente para gerenciar as dependenciais
+RUN npm install -g pnpm
 
-#Desativa a restrição do pnpm 11
-RUN echo "strictDepBuilds: false" > pnpm-workspace.yaml
+# Desativa a restrição do pnpm 11
+RUN pnpm config set strict-dep-builds false 
 
-#Copi apenas o manifesto de dependencias 
+# Copia apenas o manifesto de dependencias 
 COPY package.json ./
 
-#Instalar as dependencias do projeto 
+# Instala as dependencias do projeto 
 RUN pnpm install
 
 #Copia todo o restante do código, raiz do projeto p raiz do container

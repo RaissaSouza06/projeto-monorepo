@@ -4,6 +4,7 @@
         "module": "commonjs",        // Define o padrão de importação/exportação dos módulos.
         "rootDir": "./src",          // Onde estão os arquivos de código-fonte que você escreve.
         "outDir": "./dist",          // Onde o TypeScript vai salvar os arquivos compilados finais (para produção).
+        "resolveJsonModule": true,
         "strict": true,              // Ativa o modo estrito de checagem de erros do TypeScript (ajuda a evitar bugs).
         "esModuleInterop": true,     // Permite importar bibliotecas CommonJS como se fossem módulos modernos (ES6).
         "skipLibCheck": true,        // Pula a verificação de erros nas tipagens de bibliotecas de terceiros (acelera a compilação).
