@@ -3,11 +3,11 @@ on:
   # dispara automaticamente ao enviar novos commits para a branch main
   push:
     branches:
-      - main
+      - backup
   # dispara na abertura ou atualização de pull request, direcionados para a branch main
   pull_request:
     branches:
-      - main
+      - backup
   # permite execução manual pelo painel do github (aba actions -> run workflow)
   workflow_dispatch:
 
