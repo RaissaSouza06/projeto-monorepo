@@ -56,8 +56,8 @@ jobs:
         run: |
           cd backend
           pnpm run test:run
-        
-# Job 2. Compilação de Produção e Imagem Docker (só executa se o job 1 passar)
+
+  # Job 2. Compilação de Produção e Imagem Docker (só executa se o job 1 passar)
   build-e-docker:
     name: 2. Compilação e Imagens Docker
     needs: validacoes-e-testes
@@ -102,7 +102,7 @@ jobs:
           else
             echo "Subprojeto ainda não adicionado ao monorepo"
           fi
-      
+
       - name: 8. Resumo da Execução
         run: |
           echo "### Resumo da Execução do Pipeline do CI" >> $GITHUB_STEP_SUMMARY
