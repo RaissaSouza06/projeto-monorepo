@@ -1,4 +1,4 @@
 allowBuilds:
-  '@scarf/scarf': true
+  '@scarf/scarf': false
   esbuild: true
-  sqlite3: false
+  sqlite3: true

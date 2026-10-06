@@ -101,7 +101,9 @@ describe('Testes de Integracao: Rotas de Usuarios (/api/users)', () => {
       // Assert
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('erro');
-      expect(response.body.erro).toBe('O campo nome é obrigatório.');
+      expect(response.body.erro).toBe(
+        'Os campos nome, email e senha são obrigatórios.',
+      );
     });
 
     it('deve retornar status 400 se o e-mail informado for invalido', async () => {

@@ -1,15 +1,15 @@
 name: Monorepo CI Pipeline
 
 on:
-  # Dispara automaticamente ao enviar novos commits para a branch main
+  # Dispara automaticamente ao enviar novos commits para a branche main
   push:
     branches:
       - main
-  # Dispara na abertura ou atualização de Pull Requests direcionados para a branch main
+  # Dispara na abertura ou atualização de Pull Request direcionados para a branch main
   pull_request:
     branches:
       - main
-  # Permite execução manual pelo painel web do Github Actions
+  # Permite execução manual pelo painel web do gitgub action
   workflow_dispatch:
 
 # Permite cancelar execuções anteriores na mesma branch se novos commits forem enviados
@@ -26,7 +26,7 @@ jobs:
       NODE_ENV: test
 
     steps:
-      - name: 1. Baixar o código-fonte
+      - name: 1.Baixar o código-fonte
         uses: actions/checkout@v4
 
       - name: 2. Habilitar o pnpm
@@ -44,12 +44,12 @@ jobs:
           cd backend
           pnpm install --frozen-lockfile
 
-      - name: 5. Validar Padronização de Código (ESLint)
+      - name: 5. Validar Padronização de Código com ESlint
         run: |
           cd backend
           pnpm run lint
 
-      - name: 6. Validar Formatação de Arquivos (Prettier)
+      - name: 6. Validar Formatação de Arquivos com o Prettier
         run: |
           cd backend
           pnpm run format:check
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1. Baixar o código-fonte
+      - name: 1.Baixar o código-fonte
         uses: actions/checkout@v4
 
       - name: 2. Habilitar o pnpm
@@ -100,13 +100,13 @@ jobs:
 
       - name: 7. Validar Frontend (quando presente no monorepo)
         run: |
-          if [ -d "app" ]; then
-            echo "Subprojeto frontend encontrado. Iniciando validação..."
+          if [ -d "app"]; then
+            echo "subprojeto frontend encontrado. Iniciando validação..."
             cd app
             pnpm install --frozen-lockfile
             pnpm run build
             # docker build -t app-service:test .
-          else 
+          else
             echo "Subprojeto app ainda não adicionado ao monorepo."
           fi
 
