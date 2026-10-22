@@ -1,6 +1,6 @@
 # Projeto Monorepo FATEC
 
-f9c2bb145ee0b0b562681cfda650b44832849a3c
+27e1fb1249e6cf91b32dd031833b62796462e653
 
 ## Teste Skip ci
 
