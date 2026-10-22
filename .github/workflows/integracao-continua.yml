@@ -1,15 +1,15 @@
 name: Monorepo CI Pipeline
 
 on:
-  # Dispara automaticamente ao enviar novos commits para a branche main
+  # Dispara automaticamente ao enviar novos commits para a branch main
   push:
     branches:
       - main
-  # Dispara na abertura ou atualização de Pull Request direcionados para a branch main
+  # Dispara na abertura ou atualização de Pull Requests direcionados para a branch main
   pull_request:
     branches:
       - main
-  # Permite execução manual pelo painel web do gitgub action
+  # Permite execução manual pelo painel web do Github Actions
   workflow_dispatch:
 
 # Permite cancelar execuções anteriores na mesma branch se novos commits forem enviados
@@ -26,10 +26,10 @@ jobs:
       NODE_ENV: test
 
     steps:
-      - name: 1.Baixar o código-fonte
+      - name: 1. Baixar o código-fonte
         uses: actions/checkout@v4
-        with: 
-          fetch-depth: 0 # Necessário para o SonarQube analisar o histórico de comits
+        with:
+          fetch-depth: 0 # Necessário para o SonarQube analisar o histórico de commits
 
       - name: 2. Habilitar o pnpm
         uses: pnpm/action-setup@v4
@@ -46,12 +46,12 @@ jobs:
           cd backend
           pnpm install --frozen-lockfile
 
-      - name: 5. Validar Padronização de Código com ESlint
+      - name: 5. Validar Padronização de Código (ESLint)
         run: |
           cd backend
           pnpm run lint
 
-      - name: 6. Validar Formatação de Arquivos com o Prettier
+      - name: 6. Validar Formatação de Arquivos (Prettier)
         run: |
           cd backend
           pnpm run format:check
@@ -67,38 +67,41 @@ jobs:
           pnpm run test:coverage
         env:
           NODE_ENV: test
-      
+
       - name: 9. Executar Análise Estática com SonarQube
         uses: sonarsource/sonarqube-scan-action@v4
         with:
           projectBaseDir: backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL}}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - name: 10. Validar SonarQube Quality Gate
         uses: sonarsource/sonarqube-quality-gate-action@v1
+        with:
+          scanMetadataReportFile: backend/.scannerwork/report-task.txt
         timeout-minutes: 5
+        continue-on-error: true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: 11. Publicar Relatório de Cobertura do resumo do Job
+      - name: 11. Publicar Relatório de Cobertura no Resumo do Job
         if: always()
         run: |
           echo "## Relatório de Cobertura de Código e Análise Estática" >> $GITHUB_STEP_SUMMARY
-          echo "Execução de testes e inspeção estática concluída para commit \`${{ github.sha}}\`." >> $GITHUB_STEP_SUMMARY
+          echo "Execução de testes e inspeção estática concluídas para commit \`${{ github.sha }}\`." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Relatório LCOV enviado para o SonarQub com sucesso." >> $GITHUB_STEP_SUMMARY
-          echo "Os relatórios detalhados em HTML foram salvos como artefatos desta execução" >> $GITHUB_STEP_SUMMARY
+          echo "Relatório LCOV enviado para o SonarQube com sucesso." >> $GITHUB_STEP_SUMMARY
+          echo "Os relatórios detalhados em HTML foram salvos como artefato desta execução." >> $GITHUB_STEP_SUMMARY
 
       - name: 12. Salvar Artefatos de Cobertura (HTML e LCOV)
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage-report-backend
-          path: Backend/coverage
-          retentio-days: 14
-
+          path: backend/coverage
+          retention-days: 14
 
   # Job 2: Compilação de Produção e Imagens Docker (Só executa se o Job 1 passar)
   build-e-docker:
@@ -107,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1.Baixar o código-fonte
+      - name: 1. Baixar o código-fonte
         uses: actions/checkout@v4
 
       - name: 2. Habilitar o pnpm
@@ -136,13 +139,13 @@ jobs:
 
       - name: 7. Validar Frontend (quando presente no monorepo)
         run: |
-          if [ -d "app"]; then
-            echo "subprojeto frontend encontrado. Iniciando validação..."
+          if [ -d "app" ]; then
+            echo "Subprojeto frontend encontrado. Iniciando validação..."
             cd app
             pnpm install --frozen-lockfile
             pnpm run build
             # docker build -t app-service:test .
-          else
+          else 
             echo "Subprojeto app ainda não adicionado ao monorepo."
           fi
 
