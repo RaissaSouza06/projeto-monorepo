@@ -1,38 +1,33 @@
+# ==============================================================================
 # Estágio 1: Build da Aplicação
-
-# 1. Define a imagem de origem base 
-FROM node:24-alpine AS builder
+# ==============================================================================
+FROM node:20-alpine AS builder
 
 # Instalação do pnpm globalmente
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# 2. Define diretório de trabalho interno do container
 WORKDIR /app
 
-# Cópia dos manifestos de dependencias do backend
-COPY package.json pnpm.lock.yaml* ./
+# Copia dos manifestos de dependências do backend
+COPY package.json pnpm-lock.yaml* ./
 
-# Instalação de todas as dependencias incluindo devDependencies para o build
-RUN npm install --frozen-lockfile
+# Instalação de todas as dependências (incluindo devDependencies para o build)
+RUN pnpm install --frozen-lockfile
 
-# 3. Instalar o pnpm globalmente para gerenciar as dependências
-RUN npm install -g pnpm
-
-# Desativa a restrição do pnpm 11
-RUN pnpm config set strict-dep-builds false
-
-# Cópia do codigo-fonte e da configuração do Typescript
+# Copia do código-fonte e da configuração do TypeScript
 COPY tsconfig.json ./
-COPY dsrc ./src
+COPY src ./src
 
-# Compilação do typescript para javascript (gera a pasta dist/)
+# Compilação do TypeScript para JavaScript (gera a pasta dist/)
 RUN pnpm run build
 
-# Remoção das dependencias de desenvolvimento para diminuir o tamanho final
+# Remoção das dependências de desenvolvimento para diminuir o tamanho final
 RUN pnpm prune --prod
 
-# Estágio 2: Imagem Final de execução (Produção)
-FROM node:24-alpine AS runner
+# ==============================================================================
+# Estágio 2: Imagem Final de Execução (Produção)
+# ==============================================================================
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
@@ -40,3 +35,20 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
+# Criação de um usuário do sistema sem privilégios de root para segurança
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nodejs
+
+# Copia dos manifestos, dependências de produção e artefatos compilados
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+
+# Ajuste de permissões para o usuário não-root
+USER nodejs
+
+# Exposição da porta padrão da API
+EXPOSE 3000
+
+# Comando de inicialização do servidor compilado
+CMD ["node", "dist/server.js"]
