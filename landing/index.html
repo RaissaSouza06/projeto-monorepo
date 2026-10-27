@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <!-- Metadados de Indexacao e SEO Primario -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlatformHub | Gestão Ágil e Automação de Projetos</title>
+    <meta
+      name="description"
+      content="Acelere o ciclo de entrega da sua equipe com o PlatformHub. Orquestração ágil de sprints, autenticação segura e monitoramento em tempo real em um único ambiente."
+    />
+    <meta
+      name="keywords"
+      content="gestão ágil, projetos de software, scrum, kanban, react, typescript, api rest"
+    />
+    <meta name="author" content="Equipe DSM FATEC" />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://RaissaSouza06.github.io/projeto-monorepo/"
+    />
+
+    <!-- Metadados Sociais Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://seu-usuario.github.io/projeto-monorepo/" />
+    <meta property="og:title" content="PlatformHub | Gestão Ágil e Automação de Projetos" />
+    <meta property="og:description" content="Acelere o ciclo de entrega da sua equipe com o PlatformHub. Orquestração ágil de sprints, autenticação segura e monitoramento em tempo real." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=630&q=80" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Metadados Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://seu-usuario.github.io/projeto-monorepo/" />
+    <meta name="twitter:title" content="PlatformHub | Gestão Ágil e Automação de Projetos" />
+    <meta name="twitter:description" content="Orquestração ágil de sprints, autenticação segura e monitoramento em tempo real." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=630&q=80" />
+
+    <!-- Rich Snippets JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PlatformHub",
+        "url": "https://RaissaSouza06.github.io/projeto-monorepo/",
+        "description": "Plataforma de orquestração ágil de projetos com autenticação JWT e métricas em tempo real.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+        "creator": { "@type": "Organization", "name": "Equipe DSM FATEC" }
+      }
+    </script>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff385c'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>"
+      type="image/svg+xml"
+    />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+            },
+            colors: {
+              primary: {
+                DEFAULT: "#ff385c",
+                hover: "#e00b41",
+              },
+              charcoal: "#222222",
+              secondary: "#6a6a6a",
+              muted: "#b0b0b0",
+              border: "#dddddd",
+              subtle: "#f7f7f7",
+            },
+            boxShadow: {
+              card: "0 6px 16px rgba(0, 0, 0, 0.12)",
+              hover: "0 12px 24px rgba(0, 0, 0, 0.18)",
+            },
+            borderRadius: {
+              sm: "8px",
+              md: "12px",
+              lg: "16px",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Divider gradient */
+      .divider-airbnb {
+        background: linear-gradient(90deg, transparent, #dddddd 20%, #dddddd 80%, transparent);
+        height: 1px;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-white text-charcoal font-sans selection:bg-primary selection:text-white">
+
+    <!-- ======================================================
+         HEADER — Sticky com borda inferior sutil
+    ======================================================= -->
+    <header class="sticky top-0 z-50 w-full bg-white border-b border-border">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+
+        <!-- Logotipo -->
+        <a
+          href="#"
+          class="group flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary rounded-sm"
+          aria-label="PlatformHub — Página inicial"
+        >
+          <span
+            class="inline-flex h-9 w-9 items-center justify-center rounded-md bg-primary text-white shadow-card group-hover:bg-primary-hover transition-colors"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </span>
+          <span class="text-xl font-semibold tracking-tight text-charcoal">
+            Platform<span class="text-primary">Hub</span>
+          </span>
+        </a>
+
+        <!-- Navegação Principal -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-secondary" aria-label="Navegação principal">
+          <a href="#recursos" class="hover:text-charcoal transition-colors">Recursos</a>
+          <a href="#demonstracao" class="hover:text-charcoal transition-colors">Interface</a>
+          <a href="#depoimentos" class="hover:text-charcoal transition-colors">Depoimentos</a>
+          <a href="#faq" class="hover:text-charcoal transition-colors">Perguntas Frequentes</a>
+        </nav>
+
+        <!-- Ações -->
+        <div class="flex items-center gap-3">
+          <a
+            href="/app"
+            class="text-sm font-semibold text-charcoal hover:bg-subtle px-3 py-2 rounded-sm transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            Entrar
+          </a>
+          <a
+            href="/app"
+            class="inline-flex items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-card hover:bg-primary-hover hover:shadow-hover active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            Acessar Sistema
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo-principal">
+
+      <!-- ======================================================
+           HERO
+      ======================================================= -->
+      <section class="relative pt-20 pb-16 lg:pt-28 lg:pb-24 bg-white">
+        <div class="mx-auto max-w-7xl px-6 text-center">
+
+          <!-- Badge de versão -->
+          <div class="inline-flex items-center gap-2 rounded-full border border-border bg-subtle px-4 py-1.5 text-xs font-semibold text-secondary mb-8">
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            Versão 2.0 — Autenticação JWT, Postgres Dual e Deploy Contínuo
+          </div>
+
+          <!-- H1 -->
+          <h1 class="mx-auto max-w-4xl text-5xl font-bold tracking-tight leading-tight sm:text-6xl lg:text-7xl text-charcoal" style="letter-spacing: -0.02em; line-height: 1.1;">
+            Acelere suas entregas com
+            <span class="text-primary"> agilidade e excelência técnica</span>
+          </h1>
+
+          <!-- Subtítulo -->
+          <p class="mx-auto mt-6 max-w-2xl text-lg text-secondary leading-relaxed">
+            Orquestração unificada de squads, visibilidade de sprints ponta a ponta e governança robusta com stack moderna em Node.js, React e TypeScript.
+          </p>
+
+          <!-- CTAs -->
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/app"
+              class="inline-flex items-center gap-2.5 rounded-sm bg-primary px-8 py-4 text-base font-semibold text-white shadow-card hover:bg-primary-hover hover:shadow-hover active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              Começar Gratuitamente
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a
+              href="#demonstracao"
+              class="inline-flex items-center gap-2 rounded-sm border border-border bg-white px-8 py-4 text-base font-semibold text-charcoal hover:shadow-card transition-all focus:outline-none focus:ring-2 focus:ring-border"
+            >
+              Explorar Painel
+            </a>
+          </div>
+
+          <!-- Métricas de validação social -->
+          <div class="mt-16 grid grid-cols-2 gap-6 border-t border-border pt-10 sm:grid-cols-4 max-w-4xl mx-auto">
+            <div class="p-3">
+              <p class="text-3xl font-bold text-charcoal tracking-tight" style="letter-spacing: -0.01em;">+10.000</p>
+              <p class="text-xs uppercase tracking-wider text-secondary mt-1 font-medium">Usuários Ativos</p>
+            </div>
+            <div class="p-3">
+              <p class="text-3xl font-bold text-charcoal tracking-tight" style="letter-spacing: -0.01em;">99.9%</p>
+              <p class="text-xs uppercase tracking-wider text-secondary mt-1 font-medium">Uptime Garantido</p>
+            </div>
+            <div class="p-3">
+              <p class="text-3xl font-bold text-charcoal tracking-tight" style="letter-spacing: -0.01em;">&lt; 80ms</p>
+              <p class="text-xs uppercase tracking-wider text-secondary mt-1 font-medium">Latência de API</p>
+            </div>
+            <div class="p-3">
+              <p class="text-3xl font-bold text-charcoal tracking-tight" style="letter-spacing: -0.01em;">4.9 / 5.0</p>
+              <p class="text-xs uppercase tracking-wider text-secondary mt-1 font-medium">Satisfação Técnica</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           MOCKUP — Interface do Sistema
+      ======================================================= -->
+      <section id="demonstracao" class="py-16 bg-subtle">
+        <div class="mx-auto max-w-6xl px-6">
+
+          <!-- Título da seção -->
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-semibold text-charcoal" style="letter-spacing: -0.01em;">Veja a interface em ação</h2>
+            <p class="mt-3 text-base text-secondary">Um painel centralizado para acompanhar sprints, métricas e pipelines em tempo real.</p>
+          </div>
+
+          <!-- Card mockup -->
+          <div class="relative rounded-lg border border-border bg-white shadow-hover overflow-hidden">
+
+            <!-- Barra de navegador simulada -->
+            <div class="flex items-center justify-between border-b border-border px-5 py-3 bg-subtle">
+              <div class="flex items-center gap-1.5" aria-hidden="true">
+                <span class="h-3 w-3 rounded-full bg-red-400"></span>
+                <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+                <span class="h-3 w-3 rounded-full bg-emerald-400"></span>
+              </div>
+              <div class="rounded-full border border-border bg-white px-6 py-1 font-mono text-xs text-secondary">
+                https://app.platformhub.io/dashboard
+              </div>
+              <div class="h-3 w-3" aria-hidden="true"></div>
+            </div>
+
+            <!-- Corpo da interface -->
+            <div class="p-6 md:p-8 space-y-6">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h3 class="text-xl font-semibold text-charcoal">Painel da Squad · Sprint 14</h3>
+                  <p class="text-xs text-secondary mt-1">Visão consolidada de produtividade, commits e deploys ativos</p>
+                </div>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
+                  Produção Operacional
+                </span>
+              </div>
+
+              <!-- KPI cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="rounded-md border border-border bg-white p-5 shadow-card">
+                  <p class="text-xs font-medium text-secondary">Issues Concluídas</p>
+                  <p class="text-2xl font-bold text-charcoal mt-2">42 / 48</p>
+                  <div class="mt-3 w-full bg-subtle h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-primary h-1.5 rounded-full" style="width: 87%" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" aria-label="87% das issues concluídas"></div>
+                  </div>
+                </div>
+                <div class="rounded-md border border-border bg-white p-5 shadow-card">
+                  <p class="text-xs font-medium text-secondary">Tempo Médio de Resolução</p>
+                  <p class="text-2xl font-bold text-charcoal mt-2">1.8 dias</p>
+                  <p class="text-xs text-emerald-600 mt-2 font-medium">↓ 24% em relação à sprint anterior</p>
+                </div>
+                <div class="rounded-md border border-border bg-white p-5 shadow-card">
+                  <p class="text-xs font-medium text-secondary">Taxa de Sucesso em CI/CD</p>
+                  <p class="text-2xl font-bold text-charcoal mt-2">99.4%</p>
+                  <p class="text-xs text-primary mt-2 font-medium">✓ 138 builds aprovados sem falhas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           RECURSOS E FUNCIONALIDADES
+      ======================================================= -->
+      <section id="recursos" class="py-24 bg-white border-t border-border">
+        <div class="mx-auto max-w-7xl px-6">
+
+          <div class="text-center max-w-2xl mx-auto">
+            <h2 class="text-3xl font-semibold text-charcoal" style="letter-spacing: -0.01em;">
+              Arquitetura sólida para equipes de alta performance
+            </h2>
+            <p class="mt-4 text-base text-secondary leading-relaxed">
+              Cada componente foi planejado para maximizar a autonomia das squads e a governança de software.
+            </p>
+          </div>
+
+          <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Recurso 1: Autenticação -->
+            <article class="rounded-md border border-border bg-white p-7 shadow-card hover:shadow-hover transition-shadow group">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-md bg-red-50 border border-red-100 text-primary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold text-charcoal">Autenticação JWT Segura</h3>
+              <p class="mt-2 text-sm text-secondary leading-relaxed">
+                Tokens criptografados com suporte a refresh, controle de papéis por usuário e middleware de proteção no Express.
+              </p>
+            </article>
+
+            <!-- Recurso 2: Roteamento -->
+            <article class="rounded-md border border-border bg-white p-7 shadow-card hover:shadow-hover transition-shadow group">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-md bg-red-50 border border-red-100 text-primary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                  <line x1="4" y1="22" x2="4" y2="15"></line>
+                </svg>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold text-charcoal">Roteamento e Guard Routes</h3>
+              <p class="mt-2 text-sm text-secondary leading-relaxed">
+                Proteção declarativa de telas no cliente utilizando React Router e Context API para gestão global da sessão.
+              </p>
+            </article>
+
+            <!-- Recurso 3: Banco Dual -->
+            <article class="rounded-md border border-border bg-white p-7 shadow-card hover:shadow-hover transition-shadow group">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-md bg-red-50 border border-red-100 text-primary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold text-charcoal">PostgreSQL Dual</h3>
+              <p class="mt-2 text-sm text-secondary leading-relaxed">
+                Flexibilidade absoluta com Sequelize ORM: execute testes locais em Docker ou sincronize na nuvem com Supabase.
+              </p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           DEPOIMENTOS — Prova Social
+      ======================================================= -->
+      <section id="depoimentos" class="py-24 bg-subtle border-t border-border">
+        <div class="mx-auto max-w-7xl px-6">
+
+          <div class="text-center max-w-2xl mx-auto">
+            <h2 class="text-3xl font-semibold text-charcoal" style="letter-spacing: -0.01em;">
+              Aprovado por quem desenvolve na prática
+            </h2>
+            <p class="mt-4 text-base text-secondary">
+              Relatos reais de engenheiros que utilizam a arquitetura para acelerar projetos web.
+            </p>
+          </div>
+
+          <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Depoimento 1 -->
+            <article class="rounded-md border border-border bg-white p-7 shadow-card hover:shadow-hover transition-shadow flex flex-col justify-between">
+              <div>
+                <!-- Estrelas -->
+                <div class="flex items-center gap-0.5 text-primary" aria-label="5 de 5 estrelas">
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+                <p class="mt-4 text-sm text-secondary leading-relaxed">
+                  "O desacoplamento da landing no Pages e o app principal garantiu velocidade máxima e clareza para a apresentação do projeto."
+                </p>
+              </div>
+              <div class="mt-6 flex items-center gap-3 pt-6 border-t border-border">
+                <div class="h-10 w-10 rounded-full bg-red-50 border border-red-100 flex items-center justify-center font-semibold text-primary text-sm" aria-hidden="true">GF</div>
+                <div>
+                  <p class="text-sm font-semibold text-charcoal">Gabriel Ferreira</p>
+                  <p class="text-xs text-secondary">Desenvolvedor Full Stack</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Depoimento 2 -->
+            <article class="rounded-md border border-border bg-white p-7 shadow-card hover:shadow-hover transition-shadow flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-0.5 text-primary" aria-label="5 de 5 estrelas">
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+                <p class="mt-4 text-sm text-secondary leading-relaxed">
+                  "Pontuação máxima no Lighthouse em SEO e Acessibilidade obtida diretamente através da semântica limpa."
+                </p>
+              </div>
+              <div class="mt-6 flex items-center gap-3 pt-6 border-t border-border">
+                <div class="h-10 w-10 rounded-full bg-red-50 border border-red-100 flex items-center justify-center font-semibold text-primary text-sm" aria-hidden="true">LA</div>
+                <div>
+                  <p class="text-sm font-semibold text-charcoal">Larissa Almeida</p>
+                  <p class="text-xs text-secondary">Scrum Master & QA</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Depoimento 3 -->
+            <article class="rounded-md border border-border bg-white p-7 shadow-card hover:shadow-hover transition-shadow flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-0.5 text-primary" aria-label="5 de 5 estrelas">
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+                <p class="mt-4 text-sm text-secondary leading-relaxed">
+                  "O pipeline dispara apenas ao alterar a pasta landing. Zero atrito para atualizar o portal público."
+                </p>
+              </div>
+              <div class="mt-6 flex items-center gap-3 pt-6 border-t border-border">
+                <div class="h-10 w-10 rounded-full bg-red-50 border border-red-100 flex items-center justify-center font-semibold text-primary text-sm" aria-hidden="true">MT</div>
+                <div>
+                  <p class="text-sm font-semibold text-charcoal">Matheus Teles</p>
+                  <p class="text-xs text-secondary">Arquiteto de Software</p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           CTA FINAL
+      ======================================================= -->
+      <section class="py-20 bg-white border-t border-border">
+        <div class="mx-auto max-w-7xl px-6">
+          <div class="relative overflow-hidden rounded-lg border border-border bg-subtle px-8 py-16 text-center shadow-card">
+
+            <!-- Detalhe decorativo -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+              <div class="absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary opacity-5"></div>
+              <div class="absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-primary opacity-5"></div>
+            </div>
+
+            <div class="relative z-10 mx-auto max-w-3xl">
+              <h2 class="text-4xl font-bold text-charcoal sm:text-5xl" style="letter-spacing: -0.02em; line-height: 1.1;">
+                Pronto para transformar a gestão dos seus projetos?
+              </h2>
+              <p class="mt-5 text-base sm:text-lg text-secondary leading-relaxed">
+                Crie sua conta agora mesmo ou acesse o painel desenvolvido ao longo do semestre de Laboratório de Desenvolvimento Web.
+              </p>
+
+              <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href="/app"
+                  class="inline-flex items-center gap-2 rounded-sm bg-primary px-8 py-4 text-base font-semibold text-white shadow-card hover:bg-primary-hover hover:shadow-hover active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  Acessar Plataforma Web
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================
+         FOOTER
+    ======================================================= -->
+    <footer class="border-t border-border bg-subtle py-14 text-sm text-secondary" role="contentinfo">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+          <!-- Marca -->
+          <div class="col-span-2 md:col-span-1">
+            <a href="#" class="flex items-center gap-2 text-lg font-semibold text-charcoal" aria-label="PlatformHub — Página inicial">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-sm bg-primary text-white font-bold text-sm" aria-hidden="true">P</span>
+              <span>Platform<span class="text-primary">Hub</span></span>
+            </a>
+            <p class="mt-3 text-xs text-muted leading-relaxed">
+              Plataforma desenvolvida no curso de Desenvolvimento de Sistemas Multiplataforma (DSM) — FATEC.
+            </p>
+          </div>
+
+          <!-- Navegação -->
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-charcoal">Navegação</h3>
+            <ul class="mt-4 space-y-2.5 text-xs">
+              <li><a href="#recursos" class="hover:text-charcoal transition-colors">Recursos</a></li>
+              <li><a href="#demonstracao" class="hover:text-charcoal transition-colors">Interface</a></li>
+              <li><a href="#depoimentos" class="hover:text-charcoal transition-colors">Depoimentos</a></li>
+            </ul>
+          </div>
+
+          <!-- Aplicação -->
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-charcoal">Aplicação</h3>
+            <ul class="mt-4 space-y-2.5 text-xs">
+              <li><a href="/app" class="hover:text-charcoal transition-colors">Login no Sistema</a></li>
+              <li><a href="/app" class="hover:text-charcoal transition-colors">Cadastro de Usuário</a></li>
+              <li><a href="/app" class="hover:text-charcoal transition-colors">Painel Autenticado</a></li>
+            </ul>
+          </div>
+
+          <!-- Conformidade -->
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-charcoal">Conformidade</h3>
+            <ul class="mt-4 space-y-2.5 text-xs">
+              <li><span class="text-muted">Privacidade (LGPD)</span></li>
+              <li><span class="text-muted">Termos de Uso</span></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="mt-12 flex flex-col sm:flex-row items-center justify-between border-t border-border pt-8 text-xs text-muted">
+          <p>© 2026 PlatformHub. Todos os direitos reservados. FATEC DSM.</p>
+          <p class="mt-2 sm:mt-0">Hospedado via GitHub Pages com CI/CD automatizado.</p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
