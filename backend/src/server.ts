@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 3000;
 async function main() {
   try {
     await sequelize.authenticate();
-    console.log('Conexão com o PostgreSQL no Supabase realizada com sucesso.');
+    await sequelize.sync();
+    console.log('Conexão com o PostgreSQL realizada com sucesso.');
 
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
@@ -18,8 +19,7 @@ async function main() {
       );
     });
   } catch (error) {
-    console.error('Erro ao conectar com o banco de dados:', error);
-    process.exit(1);
+    console.log('Erro ao conectar com o banco de dados: ', error);
   }
 }
 
